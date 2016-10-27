@@ -1,0 +1,13 @@
+<h2>Enregistrement d'un match</h2>
+<%= simple_form_for @match do |f| %>
+  <%= f.input  :matchday %>
+  <%= f.association  :championnat %>
+  <%= f.input  :home_team %>
+  <%= f.input  :home_prevision %>
+  <%= f.input  :home_score %>
+  <%= f.input  :draw_prevision %>
+  <%= f.input  :away_team %>
+  <%= f.input  :away_prevision %>
+  <%= f.input  :away_score %>
+<%= f.button :submit, 'Valider' %>
+<% end %>

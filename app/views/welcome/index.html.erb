@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <h2 class="center-align"><%= @championnat.name %></h2>
+      <div class="center-align">
+        <table class="striped">
+          <thead>
+            <tr>
+              <th>Home team</th>
+              <th>Score</th>
+              <th>Away team</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%- @matches.each do |match| %>
+              <tr>
+                <td><%= match.home_team %></td>
+                <td>
+                  <span class="<%= match.home_score > match.away_score ? 'active' : '' %>">
+                  <%=match.home_score %></span> - <span class="<%= match.away_score > match.home_score ? 'active': '' %>">
+                  <%= match.away_score %> </span>
+                </td>
+                <td><%= match.home_team %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    <br/>
+    <div class="row">
+      <div class="center-align">
+        <%= will_paginate @matches %>
+      </div>
+    </div>
+  </div>
+</div>

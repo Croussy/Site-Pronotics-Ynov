@@ -1,0 +1,46 @@
+
+<h2>Liste des matchs</h2>
+<div class="row">
+  <%= link_to 'nouveau match', new_match_path, class: 'btn' %>
+    <div class="col.s12.m6">
+      <table class="striped">
+        <thead>
+          <tr>
+            <th data-field='championnat'>Championnat</th>
+            <th data-field='matchday'>Match day</th>
+            <th data-field='home_team'>home team</th>
+            <th data-field='home_prevision'>home prevision</th>
+            <th data-field='home_score'>home score</th>
+            <th data-field='away_team'>away team</th>
+            <th data-field='away_prevision'>away prevision</th>
+            <th data-field='away_score'>away score</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @matches.each do |match| %>
+            <tr>
+              <td><%= match.championnat.name %></td>
+              <td><%= match.matchday %></td>
+              <td><%= match.home_team %></td>
+              <td><%= match.home_prevision %></td>
+              <td><%= match.home_score %></td>
+              <td><%= match.away_team %></td>
+              <td><%= match.away_prevision %></td>
+              <td><%= match.away_score %></td>
+              <td><%= link_to "Editer", edit_match_path(match.id) %></td>
+              <td>
+                <%=  link_to "<span class='fa fa-close'>Supprimer</span>".html_safe,
+                        match_path(match.id),
+                        method: :delete,
+                        data: { confirm: 'Confirmer la suppression ?' }%>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+</div>
+<h3>Nombre de buts par équipe</h3>
+<%= column_chart(@datas) %>

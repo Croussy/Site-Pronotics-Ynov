@@ -1,0 +1,23 @@
+
+<h2>Liste des championnats</h2>
+<div class="row">
+  <%= link_to 'nouveau championnat', new_championnat_path, class: 'btn' %>
+  <% @championnats.each do |championnat| %>
+    <div class="col.s12.m6">
+      <div class="card">
+        <div class="card-content">
+          <span class='card-title'> <%= championnat.name %></span>
+          <div class="card-action">
+            <%= link_to "Edit", edit_championnat_path(championnat.id), class: 'fa fa-pencil' %>
+            <%= link_to "<span class='fa fa-close'>Delete</span>".html_safe,
+                        championnat_path(championnat.id),
+                        method: :delete,
+                        data: { confirm: 'Confirmer la suppression ?' }%>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<h3>Nombre de match par championnat</h3>
+<%= pie_chart(@datas) %>
