@@ -2,7 +2,7 @@ class MatchesController < ApplicationController
   layout 'admin'
 
   def index
-    @matches = Match.all.order(:matchday)
+    @matches = Match.all.order(:year, :matchday).paginate(:page => params[:page], :per_page => 380)
     @championnats = Championnat.all
     @datas = Match.sum_goal
   end

@@ -37,6 +37,9 @@ gem 'materialize-sass'
 gem 'chartkick'
 gem 'will_paginate'
 
+gem 'rserve-client'
+gem 'sucker_punch', '~> 2.0'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
