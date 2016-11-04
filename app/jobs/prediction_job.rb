@@ -6,7 +6,23 @@ class PredictionJob
       script = predict_script
       result = Rserve::Connection.new.eval(script).to_ruby
       if result
-        p result
+        next_match_year =  Match.order(:year).last.year
+        next_match_day = Match.where(year: next_match_year).order(:matchday).last.matchday + 1
+        (0..9).each do |line|
+          Match.create(
+              matchday: next_match_day,
+              year: next_match_year,
+              home_team: result[0][line],
+              home_score: nil,
+              home_prevision: result[2][line],
+              away_team: result[1][line],
+              away_score: nil,
+              away_prevision: result[4][line],
+              draw_prevision: result[3][line],
+              championnat: Championnat.where(name: 'Ligue 1').first
+          )
+        end
+
       end
     end
   end
@@ -15,7 +31,7 @@ class PredictionJob
   def predict_script
     <<-EOF
       #import data
-        setwd("/home/keclem/Documents/cours/machine_learning/dataViviz/example/initiation_rails/public/datas")
+        setwd("/home/keclem/Documents/cours/machine_learning/dataViviz/example/initiation_rails/lib/seeds")
         dataLigue1<-data.frame()
         for (i in 1:(length(list.files())-1))
         {

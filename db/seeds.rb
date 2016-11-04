@@ -242,5 +242,6 @@ Dir.glob(datas.join('**')) do |year|
 
       i = i + 1
     end
-
 end
+
+PredictionJob.perform_async()

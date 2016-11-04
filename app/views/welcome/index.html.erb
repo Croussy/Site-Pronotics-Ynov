@@ -1,12 +1,15 @@
 <div class="container">
   <div class="row">
-    <h2 class="center-align"><%= @championnat.name %></h2>
+    <h2 class="center-align"><%= @championnat.name %> - <%= @current_year %></h2>
       <div class="center-align">
         <table class="striped">
           <thead>
             <tr>
               <th>Home team</th>
+              <th>Home win provision</th>
+              <th>Draw win provision</th>
               <th>Score</th>
+              <th>Away win provision</th>
               <th>Away team</th>
             </tr>
           </thead>
@@ -14,11 +17,14 @@
             <%- @matches.each do |match| %>
               <tr>
                 <td><%= match.home_team %></td>
+                <td><%= match.home_score.nil? ? (match.home_prevision.round(4) * 100).to_s + ' %' : '' %></td>
+                <td><%= match.draw_prevision.nil? ? '' : (match.draw_prevision.round(4) * 100).to_s + ' %'%></td>
                 <td>
-                  <span class="<%= match.home_score > match.away_score ? 'active' : '' %>">
-                  <%=match.home_score %></span> - <span class="<%= match.away_score > match.home_score ? 'active': '' %>">
-                  <%= match.away_score %> </span>
+                  <span class="<%= match.home_score.nil? ? '' : match.home_score > match.away_score ? 'active' : '' %>">
+                  <%= match.home_score.nil? ? '' :  match.home_score %></span> - <span class="<%= match.away_score.nil? ? '' : match.away_score > match.home_score ? 'active': '' %>">
+                  <%= match.away_score.nil? ? '' : match.away_score %> </span>
                 </td>
+                <td><%= match.away_score.nil? ? (match.away_prevision.round(4) * 100).to_s + ' %' : '' %></td>
                 <td><%= match.away_team %></td>
               </tr>
             <% end %>

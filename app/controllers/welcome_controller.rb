@@ -1,13 +1,13 @@
 class WelcomeController < ApplicationController
   def index
+    @current_year = 2016
     @championnat = Championnat.find_by(name: 'Ligue 1')
-    @matches = Match.where( year: 2016).order(:matchday).paginate(:page => params[:page], :per_page => 10)
 
-    p '----------------------'
-    p @matches.count
-    p '----------------------'
+    unless params[:page]
+      params[:page] = @championnat.matches.where(year: @current_year).count / 10
+    end
 
-    PredictionJob.perform_async()
+    @matches = Match.where(championnat: @championnat, year: @current_year).order(:matchday).paginate(:page => params[:page], :per_page => 10)
   end
 
   def show

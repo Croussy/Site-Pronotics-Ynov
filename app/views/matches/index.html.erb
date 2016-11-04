@@ -2,6 +2,7 @@
 <h2>Liste des matchs</h2>
 <div class="row">
   <%= link_to 'nouveau match', new_match_path, class: 'btn' %>
+  <%= link_to "Lancer l'algorithme", {controler: 'matches', action: 'launch'}, class: 'btn' %>
     <div class="col.s12.m6">
       <div class="row">
         <div class="center-align">
@@ -14,12 +15,12 @@
             <th data-field='championnat'>Championnat</th>
             <th data-field='annee'>Année</th>
             <th data-field='matchday'>Match day</th>
-            <th data-field='home_team'>home team</th>
-            <th data-field='home_prevision'>home prevision</th>
-            <th data-field='home_score'>home score</th>
-            <th data-field='away_team'>away team</th>
+            <th data-field='home_team'>Home team</th>
+            <th data-field='home_prevision'>Home prevision</th>
+            <th data-field='draw_prevision'>Draw prevision</th>
+            <th data-field='score'>Score</th>
             <th data-field='away_prevision'>away prevision</th>
-            <th data-field='away_score'>away score</th>
+            <th data-field='away_team'>Away team</th>
             <th></th>
             <th></th>
           </tr>
@@ -31,11 +32,11 @@
               <td><%= match.year %></td>
               <td><%= match.matchday %></td>
               <td><%= match.home_team %></td>
-              <td><%= match.home_prevision %></td>
-              <td><%= match.home_score %></td>
+              <td><%= !match.home_prevision.nil? ? (match.home_prevision.round(4) * 100).to_s + ' %' : '' %></td>
+              <td><%= !match.draw_prevision.nil? ? (match.draw_prevision.round(4) * 100).to_s + ' %' : '' %></td>
+              <td><%= match.home_score %> - <%= match.away_score %></td>
+              <td><%= !match.away_prevision.nil? ? (match.away_prevision.round(4) * 100).to_s + ' %' : '' %></td>
               <td><%= match.away_team %></td>
-              <td><%= match.away_prevision %></td>
-              <td><%= match.away_score %></td>
               <td><%= link_to "Editer", edit_match_path(match.id) %></td>
               <td>
                 <%=  link_to "<span class='fa fa-close'>Supprimer</span>".html_safe,

@@ -45,6 +45,11 @@ class MatchesController < ApplicationController
     redirect_to matches_path
   end
 
+  def launch
+    PredictionJob.perform_async()
+    redirect_to matches_path
+  end
+
   private
   def match_params
     params.require(:match).permit(:matchday, :home_team, :home_prevision, :home_prevision, :home_score, :draw_prevision,
